@@ -60,7 +60,7 @@
 
 ---
 
-### Endpoint 2: Visual Overlay + Interpretive Starter Dossier
+### Endpoint 2: Comprehensive Interpretive Dossier
 * **Path:** `POST /v1/chart/dossier`
 * **Local URL:** `http://localhost:3033/v1/chart/dossier`
 * **Production URL:** `https://easy-chart-api.vercel.app/v1/chart/dossier`
@@ -75,14 +75,12 @@
     }
   }
   ```
-* **Response:** `application/json`
+* **Response:** Pure clean `application/json` (Zero image code/clutter)
   * `meta`: Resolved location, IANA timezone, historical UTC time.
   * `dossier.overview`: Archetype title & dominant elements.
   * `dossier.the_big_three`: Sun, Moon, Rising archetypes, house domains, and psychological interpretations.
   * `dossier.inner_counsel`: Mercury, Venus, Mars, Jupiter, Saturn placements and dynamics.
   * `aspects`: Aspect matrix with exact orb degrees and tightness metrics.
-  * `visual_package.overlay_svg`: Raw SVG string.
-  * `visual_package.overlay_data_uri`: Base64 data URI for instant `<img>` insertion.
 
 ---
 
