@@ -6,6 +6,6 @@
     { "source": "/v1/chart/dossier", "destination": "/api/dossier" },
     { "source": "/v1/chart/dossier.json", "destination": "/api/dossier" },
     { "source": "/v1/chart/sample.svg", "destination": "/api/sample" },
-    { "source": "/", "destination": "/api/index" }
+    { "source": "/v1/status", "destination": "/api/index" }
   ]
 }

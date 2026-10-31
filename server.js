@@ -1,4 +1,6 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { AstroOverlayEngine } = require('./lib/engine.js');
 const { calculateNatalChart } = require('./lib/ephemeris.js');
 const { generateDossier } = require('./lib/interpretations.js');
@@ -122,16 +124,45 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. Root health check
-  if (url.pathname === '/') {
+  // 3. Static Files & Root Landing Page
+  if (url.pathname === '/' || url.pathname === '/index.html') {
+    const isBrowser = (req.headers.accept && req.headers.accept.includes('text/html')) || !req.headers.accept;
+    if (isBrowser && fs.existsSync(path.join(__dirname, 'index.html'))) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(fs.readFileSync(path.join(__dirname, 'index.html')));
+      return;
+    }
+
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'online',
       product: 'Easy Chart API - Headless Transparent Vector Overlay Engine',
       version: '1.0.0',
       brand_color: '#004aad',
-      endpoint: 'POST /v1/chart.svg'
+      endpoints: [
+        'POST /v1/chart.svg',
+        'POST /v1/chart/dossier',
+        'GET /v1/chart/sample.svg'
+      ]
     }, null, 2));
+    return;
+  }
+
+  // Static Assets (Images, SVGs, PNGs)
+  const safePath = path.normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[\/\\])+/, '');
+  const localFile = path.join(__dirname, safePath);
+  if (fs.existsSync(localFile) && fs.statSync(localFile).isFile()) {
+    const ext = path.extname(localFile).toLowerCase();
+    const mimeTypes = {
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.svg': 'image/svg+xml',
+      '.html': 'text/html',
+      '.json': 'application/json'
+    };
+    res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
+    res.end(fs.readFileSync(localFile));
     return;
   }
 
