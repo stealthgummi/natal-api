@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Chart API — Headless Astrology Vector Overlay & Dossier Engine</title>
+  <meta name="description" content="Generate high-precision, 100% transparent natal chart vector overlays and archetypal psychological dossiers. Built for Canva, Figma, mobile apps, and custom web cards.">
+  <link rel="icon" type="image/png" href="./logo500.png">
+  <style>
+    :root {
+      --bg: #07080d;
+      --bg-surface: #0e111a;
+      --bg-card: rgba(18, 22, 34, 0.75);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-accent: rgba(0, 74, 173, 0.4);
+      --brand: #004aad;
+      --brand-glow: rgba(0, 74, 173, 0.35);
+      --accent: #00f0ff;
+      --accent-glow: rgba(0, 240, 255, 0.25);
+      --emerald: #00e599;
+      --violet: #b57cff;
+      --gold: #ffb800;
+      --rose: #ff3366;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 10% 10%, #10162a 0%, var(--bg) 60%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    header {
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(7, 8, 13, 0.85);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-logo-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px var(--brand-glow);
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(0, 74, 173, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      padding: 0.55rem 1.15rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-brand {
+      background: var(--brand);
+      color: #fff;
+      border-color: #2563eb;
+      box-shadow: 0 4px 18px var(--brand-glow);
+    }
+
+    .btn-brand:hover {
+      background: #0056cc;
+      box-shadow: 0 6px 24px rgba(0, 74, 173, 0.6);
+    }
+
+    .btn-cyan {
+      background: var(--accent);
+      color: #07080d;
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .btn-cyan:hover {
+      background: #33f4ff;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4.5rem 0 3rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #ffffff 30%, #60a5fa 70%, #00f0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 2.25rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .banner-preview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      margin-bottom: 4rem;
+    }
+
+    .banner-preview-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Key Specs Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 4.5rem;
+    }
+
+    .spec-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .spec-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .spec-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .spec-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .spec-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Canva & Real-World Showcase */
+    .showcase-section {
+      padding: 3rem 0 4.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    .canva-showcase-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.25rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .canva-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .showcase-media {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      background: #000;
+    }
+
+    .showcase-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .showcase-content h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .showcase-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .check-icon {
+      color: var(--emerald);
+      font-weight: bold;
+    }
+
+    /* Interactive Live Sandbox */
+    .sandbox-section {
+      padding: 3rem 0 4.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sandbox-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 990px) {
+      .sandbox-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sandbox-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(0, 240, 255, 0.03);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .skin-picker-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .skin-options {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .skin-btn {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .skin-btn.active, .skin-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Live Canvas Preview Frame */
+    .preview-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .canvas-viewport {
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Skin Styles */
+    .skin-nebula {
+      background: radial-gradient(circle at 35% 35%, #2a0845 0%, #08090d 75%);
+      box-shadow: inset 0 0 60px rgba(168, 85, 247, 0.25);
+    }
+
+    .skin-obsidian {
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .skin-aurora {
+      background: linear-gradient(135deg, #064e3b 0%, #022c22 45%, #05070e 100%);
+      box-shadow: inset 0 0 50px rgba(16, 185, 129, 0.2);
+    }
+
+    .skin-sapphire {
+      background: radial-gradient(circle at 40% 40%, #004aad 0%, #040915 80%);
+      box-shadow: inset 0 0 50px rgba(0, 74, 173, 0.4);
+    }
+
+    .skin-canvacard {
+      background: #140d12;
+      border-radius: 50%;
+      box-shadow: inset 0 0 80px rgba(255, 51, 102, 0.15);
+    }
+
+    .chart-vector-img {
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* JSON Output Viewer */
+    .json-output-box {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 1.5rem;
+      background: #030407;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #38bdf8;
+      max-height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      display: none;
+    }
+
+    /* Developer Docs Section */
+    .docs-section {
+      padding: 3.5rem 0 5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .endpoint-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .endpoint-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .method-badge {
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .method-post {
+      background: #15803d;
+      color: #dcfce7;
+    }
+
+    .method-get {
+      background: #1d4ed8;
+      color: #dbeafe;
+    }
+
+    .endpoint-path {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .endpoint-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    /* Code Tabs */
+    .code-tabs-wrapper {
+      background: #040509;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-tab-nav {
+      display: flex;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 0.65rem 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: rgba(0, 240, 255, 0.04);
+    }
+
+    .code-tab-content {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    /* Parameters Table */
+    .params-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+
+    .params-table th, .params-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .params-table th {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .param-name {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .param-type {
+      font-family: var(--font-mono);
+      color: #a78bfa;
+      font-size: 0.78rem;
+    }
+
+    /* Color Legend */
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .legend-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      background: var(--bg);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <a href="#" class="brand-wrap">
+      <img src="./logo500.png" alt="Easy Chart API Logo" class="brand-logo-img">
+      <span class="brand-title">Easy Chart API</span>
+      <span class="brand-badge">Production v1.0</span>
+    </a>
+    <nav>
+      <a href="#showcase">In Canva & Design</a>
+      <a href="#sandbox">Live Playground</a>
+      <a href="#docs">Developer Instructions</a>
+      <a href="https://github.com/nightshade3271-ui/easy-chart-api" target="_blank" class="btn">GitHub</a>
+      <a href="https://rapidapi.com" target="_blank" class="btn btn-brand">RapidAPI Hub</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <span>✦</span> NASA JPL Precision · 100% Transparent Vector HUD
+      </div>
+      <h1>
+        The Headless Astrological <br>
+        <span class="hero-gradient">Vector Overlay Engine</span>
+      </h1>
+      <p>
+        Generate clean, high-precision natal chart overlays with <strong>100% transparent backgrounds</strong>. Drop them seamlessly over any dark UI card, video background, or custom design in <strong>Canva, Figma, or Photoshop</strong> without background removal.
+      </p>
+      <div class="hero-cta">
+        <a href="#sandbox" class="btn btn-cyan">⚡ Try Live Sandbox</a>
+        <a href="#docs" class="btn btn-brand">📖 Developer Instructions</a>
+        <a href="./overlay_sample.svg" target="_blank" class="btn">⬇ Download Founder SVG</a>
+      </div>
+
+      <!-- Marketplace Banner -->
+      <div class="banner-preview-card">
+        <img src="./easy-chart.png" alt="Easy Chart API Banner">
+      </div>
+    </section>
+
+    <!-- Key Specs Grid -->
+    <section class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-icon">✨</div>
+        <div class="spec-title">100% Transparent Decal</div>
+        <div class="spec-desc">Zero background fills. Pure vector geometry designed as a universal HUD to drop over any wallpaper, gradient, or card.</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔭</div>
+        <div class="spec-title">NASA JPL Precision</div>
+        <div class="spec-desc">Astronomical calculations driven by VSOP87 and ELP2000 algorithms with automatic global coordinates & historical DST.</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🧠</div>
+        <div class="spec-title">Psychological Dossier</div>
+        <div class="spec-desc">Dedicated JSON endpoint returning modern archetypal readings for The Big Three, Inner Counsel, and geometric aspects.</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🎨</div>
+        <div class="spec-title">Canva & Figma Native</div>
+        <div class="spec-desc">Standard SVG vectors with XML entities that drag & drop directly into design suites with zero font clipping.</div>
+      </div>
+    </section>
+
+    <!-- Section 1: The Canva & Design Showcase -->
+    <section id="showcase" class="showcase-section">
+      <div class="section-header">
+        <div class="section-eyebrow">Universal Design Freedom</div>
+        <h2 class="section-title">Drop Directly Into Canva, Figma & Custom Skins</h2>
+        <p class="section-desc">
+          Traditional astrology APIs lock you into solid white rectangles that clash with your app’s dark theme. Easy Chart API delivers headless, transparent overlays that adapt to your exact design.
+        </p>
+      </div>
+
+      <!-- Real Canva Screenshot Showcase -->
+      <div class="canva-showcase-grid">
+        <div class="showcase-media">
+          <img src="./images/Canva_dSVqD4Pr2U.png" alt="Easy Chart API Overlay in Canva Editor">
+        </div>
+        <div class="showcase-content">
+          <h3>The Real Canva Drop-In Test</h3>
+          <p>
+            Here is the live SVG output from <code>POST /v1/chart.svg</code> dropped directly into Canva onto a dark circular card. Notice how the transparent canvas lets your underlying background texture, gradient, and brand aesthetic shine through.
+          </p>
+          <ul class="feature-list">
+            <li><span class="check-icon">✓</span> <strong>No Background Removal Needed:</strong> True alpha-transparent SVG channels.</li>
+            <li><span class="check-icon">✓</span> <strong>Crisp Infinite Resolution:</strong> Scales to 4K posters or phone screens with zero pixelation.</li>
+            <li><span class="check-icon">✓</span> <strong>Stellium Collision Avoidance:</strong> Tight planetary clusters automatically sprout leader lines so degrees never overlap.</li>
+            <li><span class="check-icon">✓</span> <strong>Classical Color Calibration:</strong> Fire (Red), Earth (Emerald), Air (Cyan), Water (Violet).</li>
+          </ul>
+          <a href="#sandbox" class="btn btn-brand">Test Your Chart Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Interactive Sandbox & Skin Switcher -->
+    <section id="sandbox" class="sandbox-section">
+      <div class="section-header">
+        <div class="section-eyebrow">Interactive Live Playground</div>
+        <h2 class="section-title">Test Your Chart Live Over Custom Skins</h2>
+        <p class="section-desc">Generate real-time charts using our ephemeris and test how the transparent overlay looks against different background wallpapers.</p>
+      </div>
+
+      <div class="sandbox-layout">
+        <!-- Controls -->
+        <div class="sandbox-panel">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Birth Parameters</h3>
+
+          <div class="form-group">
+            <label class="form-label">Birth Date</label>
+            <input type="date" id="inputDate" class="form-input" value="1971-03-02">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Birth Time (24h)</label>
+              <input type="time" id="inputTime" class="form-input" value="13:11">
+            </div>
+            <div class="form-group">
+              <label class="form-label">House System</label>
+              <select id="inputHouse" class="form-select">
+                <option value="whole_sign">Whole Sign</option>
+                <option value="placidus">Placidus</option>
+                <option value="equal">Equal</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Birth City</label>
+            <input type="text" id="inputCity" class="form-input" value="Cincinnati" placeholder="e.g. Miami, London, Tokyo">
+            <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; display: block;">Coordinates & historical DST are resolved automatically.</span>
+          </div>
+
+          <span class="skin-picker-label">Test Background Skin</span>
+          <div class="skin-options">
+            <button class="skin-btn active" data-skin="skin-nebula">🌌 Nebula</button>
+            <button class="skin-btn" data-skin="skin-obsidian">🖤 Obsidian</button>
+            <button class="skin-btn" data-skin="skin-aurora">🟢 Aurora</button>
+            <button class="skin-btn" data-skin="skin-sapphire">💎 Sapphire</button>
+            <button class="skin-btn" data-skin="skin-canvacard">🎨 Canva Card</button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <button id="btnGenerateSvg" class="btn btn-cyan" style="justify-content: center; width: 100%;">
+              ⚡ Render SVG Vector Overlay
+            </button>
+            <button id="btnGenerateDossier" class="btn" style="justify-content: center; width: 100%;">
+              📄 Generate JSON Dossier Reading
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Stage -->
+        <div class="preview-stage">
+          <div id="canvasViewport" class="canvas-viewport skin-nebula">
+            <img id="chartImg" class="chart-vector-img" src="./v1/chart/sample.svg" alt="Live Chart Overlay">
+          </div>
+
+          <!-- JSON Output Box -->
+          <div id="jsonOutput" class="json-output-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Developer Instructions ("dev instructs too") -->
+    <section id="docs" class="docs-section">
+      <div class="section-header">
+        <div class="section-eyebrow">Developer Instructions</div>
+        <h2 class="section-title">Clean 2-Endpoint REST Architecture</h2>
+        <p class="section-desc">Integrate transparent visual overlays or pure psychological intelligence with two simple POST requests.</p>
+      </div>
+
+      <!-- Endpoint 1: POST /v1/chart.svg -->
+      <div class="endpoint-card">
+        <div class="endpoint-header">
+          <div class="endpoint-badge-wrap">
+            <span class="method-badge method-post">POST</span>
+            <span class="endpoint-path">/v1/chart.svg</span>
+          </div>
+          <span class="badge" style="color: var(--accent); border-color: var(--accent);">Returns: image/svg+xml</span>
+        </div>
+        <p class="endpoint-desc">
+          Generates a pure, transparent vector SVG overlay stream. Ideal for dropping directly into HTML <code>&lt;img&gt;</code> tags, mobile cards, canvas elements, or graphic design workflows.
+        </p>
+
+        <!-- Code Snippet Tabs -->
+        <div class="code-tabs-wrapper">
+          <div class="code-tab-nav">
+            <button class="tab-btn active" data-tab="svg-curl">cURL</button>
+            <button class="tab-btn" data-tab="svg-js">JavaScript (Fetch)</button>
+            <button class="tab-btn" data-tab="svg-python">Python</button>
+            <button class="tab-btn" data-tab="svg-html">HTML &lt;img&gt;</button>
+          </div>
+
+          <div id="svg-curl" class="code-tab-content">curl -X POST "https://easy-chart-api.vercel.app/v1/chart.svg" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "birth_data": {
+      "date": "1994-08-18",
+      "time": "14:15",
+      "city": "Miami"
+    },
+    "size": 800
+  }' \
+  --output my_chart.svg</div>
+
+          <div id="svg-js" class="code-tab-content" style="display: none;">const response = await fetch('https://easy-chart-api.vercel.app/v1/chart.svg', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    birth_data: {
+      date: '1994-08-18',
+      time: '14:15',
+      city: 'Miami'
+    },
+    size: 800
+  })
+});
+
+const svgMarkup = await response.text();
+// Inject into DOM:
+document.getElementById('chart-container').innerHTML = svgMarkup;</div>
+
+          <div id="svg-python" class="code-tab-content" style="display: none;">import requests
+
+url = "https://easy-chart-api.vercel.app/v1/chart.svg"
+payload = {
+    "birth_data": {
+        "date": "1994-08-18",
+        "time": "14:15",
+        "city": "Miami"
+    },
+    "size": 800
+}
+
+response = requests.post(url, json=payload)
+with open("natal_chart.svg", "w", encoding="utf-8") as f:
+    f.write(response.text)
+print("Saved natal_chart.svg successfully!")</div>
+
+          <div id="svg-html" class="code-tab-content" style="display: none;">&lt;!-- Instant direct public reference sample embed --&gt;
+&lt;div style="background: radial-gradient(circle, #2a0845, #08090d); border-radius: 20px;"&gt;
+  &lt;img src="https://easy-chart-api.vercel.app/v1/chart/sample.svg" 
+       alt="Astrology Chart Overlay" 
+       style="width: 100%; height: auto;" /&gt;
+&lt;/div&gt;</div>
+        </div>
+      </div>
+
+      <!-- Endpoint 2: POST /v1/chart/dossier -->
+      <div class="endpoint-card">
+        <div class="endpoint-header">
+          <div class="endpoint-badge-wrap">
+            <span class="method-badge method-post">POST</span>
+            <span class="endpoint-path">/v1/chart/dossier</span>
+          </div>
+          <span class="badge" style="color: #60a5fa; border-color: #60a5fa;">Returns: application/json</span>
+        </div>
+        <p class="endpoint-desc">
+          Returns pure structured archetypal psychological readings. Includes <strong>The Big Three</strong> (Sun, Moon, Rising), <strong>Inner Counsel</strong> planetary dynamics (Mercury, Venus, Mars, Jupiter, Saturn), and geometric aspect tables. <strong>Zero image code or clutter.</strong>
+        </p>
+
+        <!-- Code Snippet Tabs -->
+        <div class="code-tabs-wrapper">
+          <div class="code-tab-nav">
+            <button class="tab-btn active" data-tab="dossier-curl">cURL</button>
+            <button class="tab-btn" data-tab="dossier-js">JavaScript</button>
+            <button class="tab-btn" data-tab="dossier-python">Python</button>
+            <button class="tab-btn" data-tab="dossier-response">Sample Response</button>
+          </div>
+
+          <div id="dossier-curl" class="code-tab-content">curl -X POST "https://easy-chart-api.vercel.app/v1/chart/dossier" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "birth_data": {
+      "date": "1971-03-02",
+      "time": "13:11",
+      "city": "Cincinnati"
+    }
+  }'</div>
+
+          <div id="dossier-js" class="code-tab-content" style="display: none;">const response = await fetch('https://easy-chart-api.vercel.app/v1/chart/dossier', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    birth_data: {
+      date: '1971-03-02',
+      time: '13:11',
+      city: 'Cincinnati'
+    }
+  })
+});
+
+const { dossier, aspects } = await response.json();
+console.log('Sun Archetype:', dossier.the_big_three.sun.archetype);
+console.log('Moon Domain:', dossier.the_big_three.moon.house_domain);</div>
+
+          <div id="dossier-python" class="code-tab-content" style="display: none;">import requests
+
+url = "https://easy-chart-api.vercel.app/v1/chart/dossier"
+payload = {
+    "birth_data": {
+        "date": "1971-03-02",
+        "time": "13:11",
+        "city": "Cincinnati"
+    }
+}
+
+res = requests.post(url, json=payload).json()
+big_three = res["dossier"]["the_big_three"]
+print(f"Sun: {big_three['sun']['placement']}")
+print(f"Moon: {big_three['moon']['placement']}")
+print(f"Rising: {big_three['rising']['placement']}")</div>
+
+          <div id="dossier-response" class="code-tab-content" style="display: none;">{
+  "success": true,
+  "meta": {
+    "location": "Cincinnati, OH, United States",
+    "timezone": "America/New_York",
+    "utc_time": "1971-03-02T18:11:00.000Z"
+  },
+  "dossier": {
+    "the_big_three": {
+      "sun": {
+        "placement": "Sun in Pisces (11.5° in House 9)",
+        "archetype": "The Visionary Mystic & Synthesizer",
+        "house_domain": "Higher Philosophy, Vision & Big-Picture Strategy",
+        "reading": "Boundless imagination, holistic perception, and profound intuition..."
+      },
+      "moon": {
+        "placement": "Moon in Taurus (25.0° in House 11)",
+        "archetype": "The Unshakeable Anchor (Exalted)",
+        "house_domain": "Networks, Community Alliances & Long-Range Goals"
+      },
+      "rising": {
+        "placement": "Rising in Cancer (7.8°)",
+        "archetype": "The Intuitive Guardian",
+        "domain": "The Outer Persona & Life Direction"
+      }
+    }
+  },
+  "aspects": [ ... ]
+}</div>
+        </div>
+      </div>
+
+      <!-- Parameter Reference Table -->
+      <h3 style="font-size: 1.3rem; font-weight: 700; margin: 2rem 0 1rem;">Parameter Reference</h3>
+      <div style="overflow-x: auto;">
+        <table class="params-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="param-name">birth_data.date</span></td>
+              <td><span class="param-type">string</span></td>
+              <td>Yes</td>
+              <td>Birth date in <code>YYYY-MM-DD</code> format (e.g. <code>1971-03-02</code>).</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">birth_data.time</span></td>
+              <td><span class="param-type">string</span></td>
+              <td>Yes</td>
+              <td>Local birth time in 24-hour <code>HH:MM</code> format (e.g. <code>13:11</code>).</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">birth_data.city</span></td>
+              <td><span class="param-type">string</span></td>
+              <td>Yes</td>
+              <td>City name. Coordinates, IANA timezone, and historical DST are auto-resolved.</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">house_system</span></td>
+              <td><span class="param-type">string</span></td>
+              <td>No</td>
+              <td>House division method: <code>whole_sign</code> (default), <code>placidus</code>, or <code>equal</code>.</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">size</span></td>
+              <td><span class="param-type">number</span></td>
+              <td>No</td>
+              <td>Square pixel dimensions of the SVG canvas (default <code>800</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Color Calibration Legend -->
+      <h3 style="font-size: 1.3rem; font-weight: 700; margin: 2.5rem 0 1rem;">Celestial & Element Color Calibration</h3>
+      <div class="legend-grid">
+        <div class="legend-card">
+          <div style="font-weight: 700; margin-bottom: 0.75rem; font-size: 0.9rem; color: #fff;">Zodiac Elements</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--rose);"></span> <strong>Fire:</strong> Aries, Leo, Sagittarius (#FF3366)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--emerald);"></span> <strong>Earth:</strong> Taurus, Virgo, Capricorn (#00E599)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--accent);"></span> <strong>Air:</strong> Gemini, Libra, Aquarius (#00F0FF)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--violet);"></span> <strong>Water:</strong> Cancer, Scorpio, Pisces (#B57CFF)</div>
+        </div>
+
+        <div class="legend-card">
+          <div style="font-weight: 700; margin-bottom: 0.75rem; font-size: 0.9rem; color: #fff;">Aspect Harmonics</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--accent);"></span> <strong>Trine (120°):</strong> Flow & Natural Gifts (#00F0FF)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--emerald);"></span> <strong>Sextile (60°):</strong> Creative Opportunity (#00E599)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--rose);"></span> <strong>Square (90°):</strong> Tension & Catalyst (#FF3366)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--violet);"></span> <strong>Opposition (180°):</strong> Polarity & Awareness (#B57CFF)</div>
+          <div class="legend-item"><span class="legend-dot" style="background: var(--gold);"></span> <strong>Conjunction (0°):</strong> Unified Power (#FFB800)</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#showcase">Showcase</a>
+        <a href="#sandbox">Playground</a>
+        <a href="#docs">Developer Instructions</a>
+        <a href="https://github.com/nightshade3271-ui/easy-chart-api" target="_blank">GitHub Repository</a>
+        <a href="./v1/chart/sample.svg" target="_blank">Sample Chart SVG</a>
+      </div>
+      <p style="margin-bottom: 0.5rem;">
+        <strong>Easy Chart API</strong> · Headless Astrological Overlay & Dossier Engine
+      </p>
+      <p style="font-size: 0.78rem; color: rgba(255, 255, 255, 0.4);">
+        Astronomical computations driven by NASA JPL DE405 / VSOP87 algorithms. 100% vector standard.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab Switching Logic
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wrapper = btn.closest('.code-tabs-wrapper');
+        wrapper.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        wrapper.querySelectorAll('.code-tab-content').forEach(c => c.style.display = 'none');
+        
+        btn.classList.add('active');
+        const targetId = btn.getAttribute('data-tab');
+        const targetContent = document.getElementById(targetId);
+        if (targetContent) targetContent.style.display = 'block';
+      });
+    });
+
+    // Skin Switcher Logic
+    const viewport = document.getElementById('canvasViewport');
+    document.querySelectorAll('.skin-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.skin-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        viewport.className = 'canvas-viewport ' + btn.getAttribute('data-skin');
+      });
+    });
+
+    // Live Sandbox: Generate SVG Overlay
+    const chartImg = document.getElementById('chartImg');
+    const jsonOutput = document.getElementById('jsonOutput');
+
+    document.getElementById('btnGenerateSvg').addEventListener('click', async () => {
+      const btn = document.getElementById('btnGenerateSvg');
+      btn.textContent = '⏳ Rendering...';
+      jsonOutput.style.display = 'none';
+      chartImg.style.display = 'block';
+
+      const payload = {
+        birth_data: {
+          date: document.getElementById('inputDate').value,
+          time: document.getElementById('inputTime').value,
+          city: document.getElementById('inputCity').value
+        },
+        house_system: document.getElementById('inputHouse').value,
+        size: 800
+      };
+
+      try {
+        const res = await fetch('/v1/chart.svg', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Generation failed: ' + res.status);
+        const svgText = await res.text();
+        const blob = new Blob([svgText], { type: 'image/svg+xml' });
+        chartImg.src = URL.createObjectURL(blob);
+      } catch (err) {
+        alert('Could not render SVG: ' + err.message);
+      } finally {
+        btn.textContent = '⚡ Render SVG Vector Overlay';
+      }
+    });
+
+    // Live Sandbox: Generate JSON Dossier
+    document.getElementById('btnGenerateDossier').addEventListener('click', async () => {
+      const btn = document.getElementById('btnGenerateDossier');
+      btn.textContent = '⏳ Calculating Reading...';
+
+      const payload = {
+        birth_data: {
+          date: document.getElementById('inputDate').value,
+          time: document.getElementById('inputTime').value,
+          city: document.getElementById('inputCity').value
+        }
+      };
+
+      try {
+        const res = await fetch('/v1/chart/dossier', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        jsonOutput.textContent = JSON.stringify(data, null, 2);
+        jsonOutput.style.display = 'block';
+        jsonOutput.scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        alert('Could not generate dossier: ' + err.message);
+      } finally {
+        btn.textContent = '📄 Generate JSON Dossier Reading';
+      }
+    });
+  </script>
+
+</body>
+</html>
