@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
         const svg = engine.render(chartData);
 
         res.writeHead(200, {
-          'Content-Type': 'image/svg+xml; charset=utf-8',
+          'Content-Type': 'image/svg+xml',
           'X-Astro-Overlay': 'v1.0'
         });
         res.end(svg);
@@ -126,7 +126,7 @@ const server = http.createServer((req, res) => {
     const engine = new AstroOverlayEngine({ size: 800 });
     const svg = engine.render(chartData);
 
-    res.writeHead(200, { 'Content-Type': 'image/svg+xml; charset=utf-8' });
+    res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
     res.end(svg);
     return;
   }

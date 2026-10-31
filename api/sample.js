@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   const engine = new AstroOverlayEngine({ size });
   const svg = engine.render(chartData);
 
-  res.setHeader('Content-Type', 'image/svg+xml; charset=utf-8');
+  res.setHeader('Content-Type', 'image/svg+xml');
   res.setHeader('Cache-Control', 'public, max-age=86400');
   res.statusCode = 200;
   res.end(svg);

@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
     const engine = new AstroOverlayEngine({ size });
     const svg = engine.render(chartData);
 
-    res.setHeader('Content-Type', 'image/svg+xml; charset=utf-8');
+    res.setHeader('Content-Type', 'image/svg+xml');
     res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=43200');
     res.setHeader('X-Astro-Overlay', 'v1.0');
     res.statusCode = 200;
@@ -61,3 +61,4 @@ module.exports = async (req, res) => {
     }));
   }
 };
+
