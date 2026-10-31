@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Natal Chart - March 2, 1971 (Cincinnati, OH)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #08090d;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .header {
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .sub {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    .big-three {
+      display: flex;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .badge-label {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-val {
+      font-weight: 700;
+    }
+    .canvas-frame {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      background: radial-gradient(circle at 40% 40%, #151928 0%, #07080c 80%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 1rem;
+    }
+    img.chart-img {
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #00f0ff;
+      color: #000;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: transform 0.15s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>✦ Your Natal Chart</h1>
+      <p class="sub">March 2, 1971 at 1:11 PM · Cincinnati, Ohio</p>
+    </div>
+
+    <!-- The Big 3 -->
+    <div class="big-three">
+      <div class="badge-item">
+        <span class="badge-label">Sun:</span>
+        <span class="badge-val" style="color: #FFB800;">☉ Pisces 11.5°</span>
+      </div>
+      <div style="color: rgba(255,255,255,0.2);">|</div>
+      <div class="badge-item">
+        <span class="badge-label">Moon:</span>
+        <span class="badge-val" style="color: #E2E8F0;">☽ Taurus 25.0° (Exalted)</span>
+      </div>
+      <div style="color: rgba(255,255,255,0.2);">|</div>
+      <div class="badge-item">
+        <span class="badge-label">Rising (ASC):</span>
+        <span class="badge-val" style="color: #00F0FF;">☊ Cancer 7.8°</span>
+      </div>
+    </div>
+
+    <!-- The Canvas Frame with Transparent Overlay -->
+    <div class="canvas-frame">
+      <img class="chart-img" src="./my_natal_chart.svg" alt="Your Birth Chart">
+    </div>
+
+    <a class="btn" href="./my_natal_chart.svg" download="my_natal_chart.svg">
+      ⬇ Download Your Vector SVG
+    </a>
+  </div>
+
+</body>
+</html>
+

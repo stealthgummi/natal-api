@@ -1,0 +1,28 @@
+{
+  "name": "Easy Chart API",
+  "tagline": "The Headless Transparent Astrological Vector Overlay Engine",
+  "colors": {
+    "primary": "#004aad",
+    "primary_name": "Royal Sapphire Blue",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "aspects": {
+      "trine": "#00F0FF",
+      "square": "#FF3366",
+      "opposition": "#B57CFF",
+      "sextile": "#00E599",
+      "conjunction": "#FFB800"
+    }
+  },
+  "assets": {
+    "banner": "easy-chart.png",
+    "sample_overlay": "overlay_sample.svg"
+  },
+  "founder_easter_egg": {
+    "chart": "March 2, 1971 1:11 PM Cincinnati, OH",
+    "sun": "11.5° Pisces",
+    "moon": "25.0° Taurus (Exalted)",
+    "rising": "7.8° Cancer"
+  }
+}
+

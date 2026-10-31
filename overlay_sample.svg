@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%" class="astro-overlay" style="background: transparent; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; user-select: none;">
+  <defs>
+    <filter id="chord-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Framework Circles -->
+  <circle cx="400" cy="400" r="368" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
+  <circle cx="400" cy="400" r="352" fill="none" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.5" />
+  <circle cx="400" cy="400" r="288" fill="none" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.5" />
+  <circle cx="400" cy="400" r="168" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
+  <circle cx="400" cy="400" r="32" fill="none" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+  <circle cx="400" cy="400" r="3" fill="#00F0FF" />
+  <!-- Zodiac Band -->
+  <g class="zodiac-segments">
+    <line x1="439.20660905087345" y1="114.68115763810488" x2="447.91918883995646" y2="51.27697044657259" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="360.02747323732797" y="87.50638257721232" text-anchor="middle" font-size="16" fill="#FF3366" font-weight="bold">♈</text>
+    <line x1="291.29449825335394" y1="133.30332981079437" x2="267.13772008743257" y2="74.03740310208201" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="206.63596765867902" y="150.0287251537841" text-anchor="middle" font-size="16" fill="#00E599" font-weight="bold">♉</text>
+    <line x1="172.50993886166805" y1="223.3866593847509" x2="121.95659194203876" y2="184.13925035914002" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="105.05619839111228" y="280.87041491853336" text-anchor="middle" font-size="16" fill="#00F0FF" font-weight="bold">♊</text>
+    <line x1="114.68115763810488" y1="360.79339094912626" x2="51.27697044657265" y2="352.0808111600432" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="82.50638257721232" y="444.97252676267203" text-anchor="middle" font-size="16" fill="#B57CFF" font-weight="bold">♋</text>
+    <line x1="133.30332981079437" y1="508.70550174664606" x2="74.03740310208201" y2="532.8622799125674" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="145.02872515378417" y="598.364032341321" text-anchor="middle" font-size="16" fill="#FF3366" font-weight="bold">♌</text>
+    <line x1="223.38665938475103" y1="627.4900611383321" x2="184.13925035914014" y2="678.0434080579614" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="275.8704149185334" y="699.9438016088877" text-anchor="middle" font-size="16" fill="#00E599" font-weight="bold">♍</text>
+    <line x1="360.79339094912626" y1="685.3188423618951" x2="352.08081116004325" y2="748.7230295534273" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="439.9725267626719" y="722.4936174227877" text-anchor="middle" font-size="16" fill="#00F0FF" font-weight="bold">♎</text>
+    <line x1="508.70550174664606" y1="666.6966701892056" x2="532.8622799125674" y2="725.962596897918" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="593.364032341321" y="659.9712748462158" text-anchor="middle" font-size="16" fill="#B57CFF" font-weight="bold">♏</text>
+    <line x1="627.490061138332" y1="576.6133406152491" x2="678.0434080579613" y2="615.8607496408599" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="694.9438016088877" y="529.1295850814666" text-anchor="middle" font-size="16" fill="#FF3366" font-weight="bold">♐</text>
+    <line x1="685.3188423618951" y1="439.2066090508737" x2="748.7230295534273" y2="447.91918883995675" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="717.4936174227878" y="365.02747323732825" text-anchor="middle" font-size="16" fill="#00E599" font-weight="bold">♑</text>
+    <line x1="666.6966701892055" y1="291.2944982533537" x2="725.9625968979178" y2="267.1377200874323" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="654.9712748462157" y="211.63596765867877" text-anchor="middle" font-size="16" fill="#00F0FF" font-weight="bold">♒</text>
+    <line x1="576.613340615249" y1="172.50993886166796" x2="615.8607496408598" y2="121.95659194203864" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <text x="524.1295850814666" y="110.05619839111222" text-anchor="middle" font-size="16" fill="#B57CFF" font-weight="bold">♓</text>
+    <line x1="447.91918883995646" y1="51.27697044657259" x2="449.00826131359185" y2="43.3514470476311" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="417.34362720527963" y1="48.42753436117289" x2="417.49144220987006" y2="45.431178119932895" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="386.63607009520155" y1="48.25377702454341" x2="386.4462415454175" y2="43.25738181182385" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="356.0302205610608" y1="50.75702083493354" x2="355.6554781226607" y2="47.780518171594906" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="325.7590075981291" y1="55.91821459544633" x2="324.7044480469661" y2="51.03068923458619" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="296.0528134153124" y1="63.698078505150136" x2="295.1668998932838" y2="60.83186894695541" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="267.13772008743257" y1="74.03740310208201" x2="264.11812281669245" y2="66.62916226349296" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="239.2337889341254" y1="86.85749988300427" x2="237.86362236254126" y2="84.18867175700717" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="212.5533857203216" y1="102.06080017042831" x2="209.89079176748524" y2="97.82870926375824" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="187.2995644245469" y1="119.53159766916252" x2="185.48677662134702" y2="117.14124196747923" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="163.6645218755356" y1="139.1369290610861" x2="160.30748383399492" y2="135.43148771252203" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="141.8281350183147" y1="160.72758593628384" x2="139.62780662358443" y2="158.6883324073317" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="121.95659194203876" y1="184.13925035914002" x2="115.63742357708509" y2="179.23332423093865" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="104.20112708828373" y1="209.19374542704753" x2="101.68011396687706" y2="207.5675557573917" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="88.69687026562991" y1="235.70039130422148" x2="84.27495080917578" y2="233.36659004433827" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="75.56181823022348" y1="263.4574564103867" x2="72.79672009014018" y2="262.293741550248" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="64.89593665921535" y1="292.25369271991076" x2="60.13593575948835" y2="290.7232054005913" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="56.78039935159626" y1="321.86994348683555" x2="53.85523230061557" y2="321.2040623233711" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="51.27697044657265" y1="352.0808111600432" x2="43.3514470476311" y2="350.9917386864078" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="48.42753436117289" y1="382.6563727947205" x2="45.431178119932895" y2="382.50855779013006" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="48.25377702454335" y1="413.3639299047983" x2="43.25738181182385" y2="413.55375845458235" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="50.75702083493354" y1="443.9697794389392" x2="47.780518171594906" y2="444.3445218773393" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="55.91821459544633" y1="474.2409924018709" x2="51.03068923458619" y2="475.29555195303385" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="63.698078505150136" y1="503.94718658468753" x2="60.83186894695541" y2="504.83310010671613" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="74.03740310208201" y1="532.8622799125674" x2="66.62916226349296" y2="535.8818771833076" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="86.85749988300427" y1="560.7662110658746" x2="84.18867175700717" y2="562.1363776374587" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="102.0608001704282" y1="587.4466142796782" x2="97.82870926375813" y2="590.1092082325147" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="119.53159766916258" y1="612.7004355754532" x2="117.14124196747929" y2="614.513223378653" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="139.13692906108622" y1="636.3354781244645" x2="135.43148771252214" y2="639.6925161660052" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="160.7275859362838" y1="658.1718649816853" x2="158.68833240733167" y2="660.3721933764156" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="184.13925035914014" y1="678.0434080579614" x2="179.23332423093876" y2="684.362576422915" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="209.19374542704753" y1="695.7988729117162" x2="207.5675557573917" y2="698.3198860331229" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="235.7003913042216" y1="711.3031297343701" x2="233.36659004433838" y2="715.7250491908243" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="263.4574564103868" y1="724.4381817697765" x2="262.293741550248" y2="727.2032799098599" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="292.25369271991076" y1="735.1040633407847" x2="290.72320540059127" y2="739.8640642405117" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="321.8699434868355" y1="743.2196006484037" x2="321.204062323371" y2="746.1447676993844" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="352.08081116004325" y1="748.7230295534273" x2="350.99173868640787" y2="756.6485529523688" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="382.6563727947205" y1="751.5724656388271" x2="382.50855779013006" y2="754.5688218800672" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="413.3639299047983" y1="751.7462229754567" x2="413.55375845458235" y2="756.7426181881762" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="443.9697794389391" y1="749.2429791650665" x2="444.34452187733916" y2="752.2194818284052" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="474.2409924018708" y1="744.0817854045538" x2="475.29555195303374" y2="748.9693107654139" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="503.94718658468753" y1="736.3019214948499" x2="504.83310010671613" y2="739.1681310530446" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="532.8622799125674" y1="725.962596897918" x2="535.8818771833076" y2="733.3708377365072" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="560.7662110658746" y1="713.1425001169957" x2="562.1363776374587" y2="715.8113282429929" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="587.4466142796782" y1="697.9391998295719" x2="590.1092082325146" y2="702.1712907362419" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="612.7004355754532" y1="680.4684023308374" x2="614.513223378653" y2="682.8587580325207" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="636.3354781244645" y1="660.8630709389138" x2="639.6925161660051" y2="664.5685122874779" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="658.1718649816853" y1="639.2724140637163" x2="660.3721933764156" y2="641.3116675926683" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="678.0434080579613" y1="615.8607496408599" x2="684.362576422915" y2="620.7666757690613" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="695.7988729117162" y1="590.8062545729525" x2="698.3198860331229" y2="592.4324442426084" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="711.3031297343701" y1="564.2996086957785" x2="715.7250491908243" y2="566.6334099556616" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="724.4381817697765" y1="536.5425435896133" x2="727.2032799098598" y2="537.7062584497521" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="735.1040633407847" y1="507.74630728008924" x2="739.8640642405117" y2="509.2767945994087" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="743.2196006484037" y1="478.13005651316456" x2="746.1447676993844" y2="478.795937676629" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="748.7230295534273" y1="447.91918883995675" x2="756.6485529523688" y2="449.00826131359213" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="751.5724656388271" y1="417.3436272052795" x2="754.5688218800672" y2="417.49144220987" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="751.7462229754566" y1="386.6360700952015" x2="756.7426181881762" y2="386.4462415454174" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="749.2429791650666" y1="356.03022056106107" x2="752.2194818284052" y2="355.655478122661" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="744.0817854045537" y1="325.759007598129" x2="748.9693107654139" y2="324.7044480469661" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="736.3019214948499" y1="296.0528134153124" x2="739.1681310530446" y2="295.1668998932838" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="725.9625968979178" y1="267.1377200874323" x2="733.3708377365069" y2="264.1181228166921" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="713.1425001169957" y1="239.23378893412539" x2="715.8113282429929" y2="237.86362236254124" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="697.9391998295719" y1="212.55338572032184" x2="702.1712907362419" y2="209.89079176748552" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="680.4684023308373" y1="187.29956442454665" x2="682.8587580325205" y2="185.48677662134673" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="660.8630709389138" y1="163.66452187553557" x2="664.5685122874779" y2="160.30748383399487" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="639.272414063716" y1="141.82813501831458" x2="641.3116675926682" y2="139.62780662358432" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="615.8607496408598" y1="121.95659194203864" x2="620.7666757690612" y2="115.63742357708497" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+    <line x1="590.8062545729524" y1="104.20112708828373" x2="592.4324442426083" y2="101.68011396687706" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="564.2996086957784" y1="88.6968702656298" x2="566.6334099556616" y2="84.27495080917566" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="536.5425435896133" y1="75.56181823022342" x2="537.706258449752" y2="72.79672009014013" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="507.74630728008924" y1="64.89593665921535" x2="509.2767945994087" y2="60.13593575948835" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+    <line x1="478.13005651316456" y1="56.780399351596316" x2="478.795937676629" y2="53.85523230061557" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" />
+  </g>
+  <!-- House Cusps -->
+  <g class="house-rays">
+    <line x1="114.68115763810488" y1="360.79339094912626" x2="233.56400862222785" y2="377.12947805365695" stroke="#00F0FF" stroke-width="2" stroke-dasharray="none" />
+    <text x="218.4333375363433" y="426.85928874240307" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">1</text>
+    <line x1="133.30332981079437" y1="508.70550174664606" x2="244.42694238963006" y2="463.4115426855435" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="254.18830219732033" y="514.580055995193" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">2</text>
+    <line x1="223.38665938475103" y1="627.4900611383321" x2="296.9755513077714" y2="532.702535664027" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="329.0133935315363" y="572.6709865450827" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">3</text>
+    <line x1="360.79339094912626" y1="685.3188423618951" x2="377.129478053657" y2="566.4359913777721" stroke="#00F0FF" stroke-width="2" stroke-dasharray="none" />
+    <text x="422.859288742403" y="585.5666624636567" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">4</text>
+    <line x1="508.70550174664606" y1="666.6966701892056" x2="463.4115426855435" y2="555.5730576103699" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="510.580055995193" y="549.8116978026796" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">5</text>
+    <line x1="627.490061138332" y1="576.6133406152491" x2="532.702535664027" y2="503.0244486922286" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="568.6709865450827" y="474.9866064684637" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">6</text>
+    <line x1="685.3188423618951" y1="439.2066090508737" x2="566.4359913777721" y2="422.870521946343" stroke="#00F0FF" stroke-width="2" stroke-dasharray="none" />
+    <text x="581.5666624636567" y="381.1407112575971" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">7</text>
+    <line x1="666.6966701892055" y1="291.2944982533537" x2="555.5730576103699" y2="336.5884573144563" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="545.8116978026796" y="293.4199440048069" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">8</text>
+    <line x1="576.613340615249" y1="172.50993886166796" x2="503.0244486922286" y2="267.297464335973" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="470.9866064684637" y="235.32901345491732" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">9</text>
+    <line x1="439.20660905087345" y1="114.68115763810488" x2="422.8705219463429" y2="233.56400862222785" stroke="#00F0FF" stroke-width="2" stroke-dasharray="none" />
+    <text x="377.14071125759693" y="222.4333375363433" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">10</text>
+    <line x1="291.29449825335394" y1="133.30332981079437" x2="336.5884573144565" y2="244.42694238963006" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="289.41994400480706" y="258.1883021973203" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">11</text>
+    <line x1="172.50993886166805" y1="223.3866593847509" x2="267.297464335973" y2="296.97555130777135" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <text x="231.32901345491732" y="333.0133935315363" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.6)" font-weight="600">12</text>
+    <text x="26" y="404.00000000000006" text-anchor="end" font-size="12" font-weight="bold" fill="#00F0FF">ASC</text>
+  </g>
+  <!-- Multi-Colored Aspect Chords -->
+  <g class="aspect-chords" filter="url(#chord-glow)">
+    <line x1="474.45462842977014" y1="249.39950761904905" x2="483.5771090925773" y2="254.26439407019492" stroke="#FFB800" stroke-opacity="0.69" stroke-width="1.7" class="aspect-line" data-aspect="Conjunction" data-orb="3.53">
+      <title>Sun Conjunction Mercury (3.53°)</title>
+    </line>
+    <line x1="474.45462842977014" y1="249.39950761904905" x2="542.4251321400404" y2="489.1015248741122" stroke="#FF3366" stroke-opacity="0.46" stroke-width="1.2" class="aspect-line" data-aspect="Square" data-orb="5.72">
+      <title>Sun Square Jupiter (5.72°)</title>
+    </line>
+    <line x1="474.45462842977014" y1="249.39950761904905" x2="292.82062379447905" y2="270.6300602296058" stroke="#00E599" stroke-opacity="0.36" stroke-width="0.9" class="aspect-line" data-aspect="Sextile" data-orb="5.95">
+      <title>Sun Sextile Saturn (5.95°)</title>
+    </line>
+    <line x1="276.8695436187102" y1="285.70699622752363" x2="557.2393234394361" y2="340.8409333718964" stroke="#00F0FF" stroke-opacity="0.69" stroke-width="1.7" class="aspect-line" data-aspect="Trine" data-orb="3.49">
+      <title>Moon Trine Venus (3.49°)</title>
+    </line>
+    <line x1="276.8695436187102" y1="285.70699622752363" x2="292.82062379447905" y2="270.6300602296058" stroke="#FFB800" stroke-opacity="0.39" stroke-width="1.0" class="aspect-line" data-aspect="Conjunction" data-orb="7.49">
+      <title>Moon Conjunction Saturn (7.49°)</title>
+    </line>
+    <line x1="276.8695436187102" y1="285.70699622752363" x2="373.7158180152876" y2="565.9311356478781" stroke="#00F0FF" stroke-opacity="0.66" stroke-width="1.7" class="aspect-line" data-aspect="Trine" data-orb="3.87">
+      <title>Moon Trine Pluto (3.87°)</title>
+    </line>
+    <line x1="276.8695436187102" y1="285.70699622752363" x2="518.9681839866715" y2="281.38056146266126" stroke="#FF3366" stroke-opacity="0.76" stroke-width="1.9" class="aspect-line" data-aspect="Square" data-orb="2.22">
+      <title>Moon Square NorthNode (2.22°)</title>
+    </line>
+    <line x1="483.5771090925773" y1="254.26439407019492" x2="542.4251321400404" y2="489.1015248741122" stroke="#FF3366" stroke-opacity="0.76" stroke-width="1.9" class="aspect-line" data-aspect="Square" data-orb="2.20">
+      <title>Mercury Square Jupiter (2.20°)</title>
+    </line>
+    <line x1="483.5771090925773" y1="254.26439407019492" x2="538.0236444353383" y2="495.7782521076017" stroke="#FF3366" stroke-opacity="0.53" stroke-width="1.3" class="aspect-line" data-aspect="Square" data-orb="4.92">
+      <title>Mercury Square Neptune (4.92°)</title>
+    </line>
+    <line x1="557.2393234394361" y1="340.8409333718964" x2="538.0236444353383" y2="495.7782521076017" stroke="#00E599" stroke-opacity="0.49" stroke-width="1.2" class="aspect-line" data-aspect="Sextile" data-orb="4.62">
+      <title>Venus Sextile Neptune (4.62°)</title>
+    </line>
+    <line x1="557.2393234394361" y1="340.8409333718964" x2="373.7158180152876" y2="565.9311356478781" stroke="#00F0FF" stroke-opacity="0.92" stroke-width="2.3" class="aspect-line" data-aspect="Trine" data-orb="0.38">
+      <title>Venus Trine Pluto (0.38°)</title>
+    </line>
+    <line x1="563.2053781468987" y1="439.8497747036011" x2="373.7158180152876" y2="565.9311356478781" stroke="#FF3366" stroke-opacity="0.55" stroke-width="1.4" class="aspect-line" data-aspect="Square" data-orb="4.72">
+      <title>Mars Square Pluto (4.72°)</title>
+    </line>
+    <line x1="563.2053781468987" y1="439.8497747036011" x2="518.9681839866715" y2="281.38056146266126" stroke="#00E599" stroke-opacity="0.81" stroke-width="2.1" class="aspect-line" data-aspect="Sextile" data-orb="1.36">
+      <title>Mars Sextile NorthNode (1.36°)</title>
+    </line>
+    <line x1="542.4251321400404" y1="489.1015248741122" x2="538.0236444353383" y2="495.7782521076017" stroke="#FFB800" stroke-opacity="0.75" stroke-width="1.9" class="aspect-line" data-aspect="Conjunction" data-orb="2.73">
+      <title>Jupiter Conjunction Neptune (2.73°)</title>
+    </line>
+    <line x1="292.82062379447905" y1="270.6300602296058" x2="518.9681839866715" y2="281.38056146266126" stroke="#FF3366" stroke-opacity="0.50" stroke-width="1.3" class="aspect-line" data-aspect="Square" data-orb="5.28">
+      <title>Saturn Square NorthNode (5.28°)</title>
+    </line>
+    <line x1="538.0236444353383" y1="495.7782521076017" x2="373.7158180152876" y2="565.9311356478781" stroke="#00E599" stroke-opacity="0.53" stroke-width="1.3" class="aspect-line" data-aspect="Sextile" data-orb="4.24">
+      <title>Neptune Sextile Pluto (4.24°)</title>
+    </line>
+  </g>
+  <!-- Planets Layer -->
+  <g class="planets-layer">
+    <line x1="563.2053781468987" y1="439.8497747036011" x2="679.7806482518265" y2="468.3138994918876" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="679.7806482518265" cy="468.3138994918876" r="2" fill="#FF3366" />
+    <g class="planet-glyph" id="planet-mars" data-planet="Mars" data-sign="Sagittarius" data-deg="24.1">
+      <circle cx="617.6071708625318" cy="453.1330329381348" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#FF3366" stroke-width="1.6" />
+      <text x="617.6071708625318" y="457.6330329381348" text-anchor="middle" font-size="12" fill="#FF3366" font-weight="bold">♂</text>
+      <text x="617.6071708625318" y="472.1330329381348" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">24.1°</text>
+      <title>Mars: 24.1° Sagittarius (♐) in House 6</title>
+    </g>
+    <line x1="542.4251321400404" y1="489.1015248741122" x2="644.1573693829264" y2="552.7454712127638" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="644.1573693829264" cy="552.7454712127638" r="2" fill="#B57CFF" />
+    <line x1="547.5117440021846" y1="492.28372219104483" x2="594.1965596618325" y2="511.64092536121484" stroke="#B57CFF" stroke-opacity="0.4" stroke-dasharray="2 2" stroke-width="1" />
+    <g class="planet-glyph" id="planet-jupiter" data-planet="Jupiter" data-sign="Sagittarius" data-deg="5.8">
+      <circle cx="594.1965596618325" cy="511.64092536121484" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#B57CFF" stroke-width="1.6" />
+      <text x="594.1965596618325" y="516.1409253612148" text-anchor="middle" font-size="12" fill="#B57CFF" font-weight="bold">♃</text>
+      <text x="594.1965596618325" y="530.6409253612148" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">5.8°</text>
+      <title>Jupiter: 5.8° Sagittarius (♐) in House 6</title>
+    </g>
+    <line x1="538.0236444353383" y1="495.7782521076017" x2="636.6119618891513" y2="564.1912893273172" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="636.6119618891513" cy="564.1912893273172" r="2" fill="#818CF8" />
+    <line x1="542.9530603080289" y1="499.1989039685875" x2="567.946976578208" y2="526.0706669223213" stroke="#818CF8" stroke-opacity="0.4" stroke-dasharray="2 2" stroke-width="1" />
+    <g class="planet-glyph" id="planet-neptune" data-planet="Neptune" data-sign="Sagittarius" data-deg="3.1">
+      <circle cx="567.946976578208" cy="526.0706669223213" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#818CF8" stroke-width="1.6" />
+      <text x="567.946976578208" y="530.5706669223213" text-anchor="middle" font-size="12" fill="#818CF8" font-weight="bold">♆</text>
+      <text x="567.946976578208" y="545.0706669223213" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">3.1°</text>
+      <title>Neptune: 3.1° Sagittarius (♐) in House 6</title>
+    </g>
+    <line x1="414.4221949869705" y1="567.3798084948056" x2="424.72376283480656" y2="686.936814562524" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="424.72376283480656" cy="686.936814562524" r="2" fill="#38BDF8" />
+    <g class="planet-glyph" id="planet-uranus" data-planet="Uranus" data-sign="Libra" data-deg="12.7">
+      <circle cx="419.22959331596064" cy="623.1730779930742" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#38BDF8" stroke-width="1.6" />
+      <text x="419.22959331596064" y="627.6730779930742" text-anchor="middle" font-size="12" fill="#38BDF8" font-weight="bold">♅</text>
+      <text x="419.22959331596064" y="642.1730779930742" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">12.7°</text>
+      <title>Uranus: 12.7° Libra (♎) in House 4</title>
+    </g>
+    <line x1="373.7158180152876" y1="565.9311356478781" x2="354.94140231192154" y2="684.4533753963624" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="354.94140231192154" cy="684.4533753963624" r="2" fill="#A855F7" />
+    <g class="planet-glyph" id="planet-pluto" data-planet="Pluto" data-sign="Virgo" data-deg="28.8">
+      <circle cx="364.95442402038344" cy="621.2415141971708" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#A855F7" stroke-width="1.6" />
+      <text x="364.95442402038344" y="625.7415141971708" text-anchor="middle" font-size="12" fill="#A855F7" font-weight="bold">♇</text>
+      <text x="364.95442402038344" y="640.2415141971708" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">28.8°</text>
+      <title>Pluto: 28.8° Virgo (♍) in House 3</title>
+    </g>
+    <line x1="276.8695436187102" y1="285.70699622752363" x2="188.91921763207463" y2="204.06913639004057" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="188.91921763207463" cy="204.06913639004057" r="2" fill="#E2E8F0" />
+    <g class="planet-glyph" id="planet-moon" data-planet="Moon" data-sign="Taurus" data-deg="25.0">
+      <circle cx="235.82605815828026" cy="247.60932830336486" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#E2E8F0" stroke-width="1.6" />
+      <text x="235.82605815828026" y="252.10932830336486" text-anchor="middle" font-size="12" fill="#E2E8F0" font-weight="bold">☽</text>
+      <text x="235.82605815828026" y="266.60932830336486" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">25.0°</text>
+      <title>Moon: 25.0° Taurus (♉) in House 11</title>
+    </g>
+    <line x1="292.82062379447905" y1="270.6300602296058" x2="216.26392650482128" y2="178.22296039360998" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="216.26392650482128" cy="178.22296039360998" r="2" fill="#FFB020" />
+    <g class="planet-glyph" id="planet-saturn" data-planet="Saturn" data-sign="Taurus" data-deg="17.5">
+      <circle cx="257.0941650593054" cy="227.50674697280775" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#FFB020" stroke-width="1.6" />
+      <text x="257.0941650593054" y="232.00674697280775" text-anchor="middle" font-size="12" fill="#FFB020" font-weight="bold">♄</text>
+      <text x="257.0941650593054" y="246.50674697280775" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">17.5°</text>
+      <title>Saturn: 17.5° Taurus (♉) in House 11</title>
+    </g>
+    <line x1="474.45462842977014" y1="249.39950761904905" x2="527.6365058796059" y2="141.82772734694123" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="527.6365058796059" cy="141.82772734694123" r="2" fill="#FFB800" />
+    <line x1="477.1137223022619" y1="244.02091860544365" x2="493.14149596404536" y2="196.2828879804651" stroke="#FFB800" stroke-opacity="0.4" stroke-dasharray="2 2" stroke-width="1" />
+    <g class="planet-glyph" id="planet-sun" data-planet="Sun" data-sign="Pisces" data-deg="11.5">
+      <circle cx="493.14149596404536" cy="196.2828879804651" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#FFB800" stroke-width="1.6" />
+      <text x="493.14149596404536" y="200.7828879804651" text-anchor="middle" font-size="12" fill="#FFB800" font-weight="bold">☉</text>
+      <text x="493.14149596404536" y="215.2828879804651" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">11.5°</text>
+      <title>Sun: 11.5° Pisces (♓) in House 9</title>
+    </g>
+    <line x1="483.5771090925773" y1="254.26439407019492" x2="543.2750441587038" y2="150.16753269176272" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="543.2750441587038" cy="150.16753269176272" r="2" fill="#00F0FF" />
+    <line x1="486.5620058458836" y1="249.05955100127332" x2="509.94447255572743" y2="221.0804288110356" stroke="#00F0FF" stroke-opacity="0.4" stroke-dasharray="2 2" stroke-width="1" />
+    <g class="planet-glyph" id="planet-mercury" data-planet="Mercury" data-sign="Pisces" data-deg="8.0">
+      <circle cx="509.94447255572743" cy="221.0804288110356" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#00F0FF" stroke-width="1.6" />
+      <text x="509.94447255572743" y="225.5804288110356" text-anchor="middle" font-size="12" fill="#00F0FF" font-weight="bold">☿</text>
+      <text x="509.94447255572743" y="240.0804288110356" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">8.0°</text>
+      <title>Mercury: 8.0° Pisces (♓) in House 9</title>
+    </g>
+    <line x1="518.9681839866715" y1="281.38056146266126" x2="603.9454582628655" y2="196.6523910788479" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="603.9454582628655" cy="196.6523910788479" r="2" fill="#FCD34D" />
+    <g class="planet-glyph" id="planet-northnode" data-planet="NorthNode" data-sign="Aquarius" data-deg="22.7">
+      <circle cx="558.624245315562" cy="241.84074861688168" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#FCD34D" stroke-width="1.6" />
+      <text x="558.624245315562" y="246.34074861688168" text-anchor="middle" font-size="12" fill="#FCD34D" font-weight="bold">☊</text>
+      <text x="558.624245315562" y="260.8407486168817" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">22.7°</text>
+      <title>NorthNode: 22.7° Aquarius (♒) in House 8</title>
+    </g>
+    <line x1="557.2393234394361" y1="340.8409333718964" x2="669.5531258961762" y2="298.5844572089653" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.8" />
+    <circle cx="669.5531258961762" cy="298.5844572089653" r="2" fill="#00E599" />
+    <g class="planet-glyph" id="planet-venus" data-planet="Venus" data-sign="Capricorn" data-deg="28.4">
+      <circle cx="609.6524312525816" cy="321.1212444958619" r="13" fill="rgba(10, 12, 18, 0.75)" stroke="#00E599" stroke-width="1.6" />
+      <text x="609.6524312525816" y="325.6212444958619" text-anchor="middle" font-size="12" fill="#00E599" font-weight="bold">♀</text>
+      <text x="609.6524312525816" y="340.1212444958619" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)" font-weight="600">28.4°</text>
+      <title>Venus: 28.4° Capricorn (♑) in House 7</title>
+    </g>
+  </g>
+</svg>

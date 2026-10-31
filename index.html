@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroVector - Headless SVG Chart Engine</title>
+  <style>
+    :root {
+      --bg: #0b0d14;
+      --card-bg: rgba(18, 22, 34, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #00f0ff;
+      --accent-glow: rgba(0, 240, 255, 0.25);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 15% 15%, #151b2c 0%, var(--bg) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(11, 13, 20, 0.7);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #00f0ff, #b57cff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #0b0d14;
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.18s ease;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08090d;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background: #33f4ff;
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.4);
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Left Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      backdrop-filter: blur(16px);
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .theme-btn {
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: all 0.18s ease;
+    }
+
+    .theme-btn.active {
+      border-color: var(--accent);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .theme-preview-dots {
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .theme-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .theme-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Right Preview Area */
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .canvas-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 640px;
+      overflow: hidden;
+    }
+
+    #chart-wrapper {
+      width: 100%;
+      max-width: 620px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+      transition: transform 0.25s ease;
+    }
+
+    /* Floating Inspector Tooltip */
+    #inspector-tooltip {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(15, 18, 28, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.82rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      min-width: 220px;
+      z-index: 100;
+    }
+
+    #inspector-tooltip.visible {
+      opacity: 1;
+    }
+
+    .tooltip-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tooltip-detail {
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Bottom API Code Drawer */
+    .code-card {
+      background: #06070a;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      font-family: 'SF Mono', Consolas, Monaco, monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    pre {
+      overflow-x: auto;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    .hl-method { color: #00f0ff; font-weight: bold; }
+    .hl-string { color: #00e599; }
+    .hl-key { color: #b57cff; }
+
+    @media (max-width: 1024px) {
+      main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-logo">✦</div>
+      <div>
+        <h1>AstroVector Engine</h1>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">Headless Modern SVG Chart Generator API</p>
+      </div>
+      <span class="badge">Engine v1.0</span>
+    </div>
+    <div class="actions">
+      <button class="btn" id="btn-copy-svg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy SVG
+      </button>
+      <button class="btn btn-primary" id="btn-download-svg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .SVG
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left Configuration Sidebar -->
+    <div class="sidebar">
+      
+      <!-- Custom Birth Chart Form -->
+      <div class="card">
+        <div class="card-title">
+          <span>Calculate Birth Chart</span>
+          <span class="badge" style="font-size:0.65rem;">Ephemeris Active</span>
+        </div>
+        <form id="birth-form">
+          <div class="form-group">
+            <label for="input-date">Birth Date</label>
+            <input type="date" id="input-date" value="1992-03-15" required>
+          </div>
+          <div class="form-group">
+            <label for="input-time">Birth Time (Local)</label>
+            <input type="time" id="input-time" value="20:45" required>
+          </div>
+          <div class="form-group">
+            <label for="input-city">Birth City / Location</label>
+            <input type="text" id="input-city" list="cities-list" value="Chicago" placeholder="Type city (e.g. New York, London, Tokyo)" required>
+            <datalist id="cities-list">
+              <option value="New York, United States">
+              <option value="Los Angeles, United States">
+              <option value="Chicago, United States">
+              <option value="Houston, United States">
+              <option value="Miami, United States">
+              <option value="San Francisco, United States">
+              <option value="London, United Kingdom">
+              <option value="Paris, France">
+              <option value="Berlin, Germany">
+              <option value="Rome, Italy">
+              <option value="Madrid, Spain">
+              <option value="Tokyo, Japan">
+              <option value="Toronto, Canada">
+              <option value="Sydney, Australia">
+              <option value="Sao Paulo, Brazil">
+              <option value="Dubai, UAE">
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="input-house">House System</label>
+            <select id="input-house">
+              <option value="whole_sign" selected>Whole Sign (Modern & Ancient Standard)</option>
+              <option value="equal">Equal Houses (From Exact ASC)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem; padding: 0.75rem;">
+            ✦ Calculate & Render My Chart
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Celebrity Benchmark Presets -->
+      <div class="card">
+        <div class="card-title">
+          <span>Or Pick Celebrity / Preset</span>
+        </div>
+        <div class="form-group">
+          <select id="preset-select">
+            <option value="custom" selected>-- Custom Birth Data (Above) --</option>
+            <option value="jobs">Steve Jobs (Feb 24, 1955 - San Francisco)</option>
+            <option value="einstein">Albert Einstein (Mar 14, 1879 - Ulm, Germany)</option>
+            <option value="stellium">Heavy Stellium (4 Planets in 5° - Collision Test)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Theme Switcher -->
+      <div class="card">
+        <div class="card-title">Theme Presets</div>
+        <div class="theme-grid">
+          <div class="theme-btn active" data-theme="midnight">
+            <div class="theme-preview-dots">
+              <span class="theme-dot" style="background: #08090D; border: 1px solid #1E2638;"></span>
+              <span class="theme-dot" style="background: #00F0FF;"></span>
+              <span class="theme-dot" style="background: #B57CFF;"></span>
+            </div>
+            <span class="theme-name">Midnight OLED</span>
+          </div>
+
+          <div class="theme-btn" data-theme="editorial">
+            <div class="theme-preview-dots">
+              <span class="theme-dot" style="background: #FAF8F5; border: 1px solid #D8D1C7;"></span>
+              <span class="theme-dot" style="background: #1C1917;"></span>
+              <span class="theme-dot" style="background: #2563EB;"></span>
+            </div>
+            <span class="theme-name">Editorial Noir</span>
+          </div>
+
+          <div class="theme-btn" data-theme="cyberpunk">
+            <div class="theme-preview-dots">
+              <span class="theme-dot" style="background: #05050A;"></span>
+              <span class="theme-dot" style="background: #FF0055;"></span>
+              <span class="theme-dot" style="background: #00FFFF;"></span>
+            </div>
+            <span class="theme-name">Cyberpunk Neon</span>
+          </div>
+
+          <div class="theme-btn" data-theme="pastel">
+            <div class="theme-preview-dots">
+              <span class="theme-dot" style="background: #181622;"></span>
+              <span class="theme-dot" style="background: #F9A8D4;"></span>
+              <span class="theme-dot" style="background: #93C5FD;"></span>
+            </div>
+            <span class="theme-name">Ethereal Pastel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rendering Options -->
+      <div class="card">
+        <div class="card-title">Wheel Engine Metrics</div>
+        <div class="form-group">
+          <label>Ascendant (ASC) Degree: <span id="asc-val" style="color:var(--accent);">238.4° (Scorpio)</span></label>
+          <input type="range" id="asc-slider" min="0" max="359.9" step="0.5" value="238.4">
+        </div>
+        <div class="form-group">
+          <label>Viewbox Size</label>
+          <select id="size-select">
+            <option value="600">600 x 600 (Compact Mobile)</option>
+            <option value="800" selected>800 x 800 (Standard Web Retina)</option>
+            <option value="1200">1200 x 1200 (Ultra High-Res Print)</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Live Canvas Area -->
+    <div class="preview-container">
+      
+      <!-- Big 3 Header Banner -->
+      <div id="chart-summary-bar" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="display: flex; gap: 1.2rem; align-items: center; font-size: 0.85rem;">
+          <div><span style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Sun</span> <b id="sum-sun" style="color: #FFB800;">☉ Pisces 25.8°</b></div>
+          <div style="color: var(--border);">|</div>
+          <div><span style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Moon</span> <b id="sum-moon" style="color: #E0E6ED;">☽ Leo 19.2°</b></div>
+          <div style="color: var(--border);">|</div>
+          <div><span style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Rising (ASC)</span> <b id="sum-asc" style="color: var(--accent);">☊ Libra 29.4°</b></div>
+        </div>
+        <div id="sum-location" style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">
+          📍 Chicago, IL, United States
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <!-- Floating Inspector -->
+        <div id="inspector-tooltip">
+          <div class="tooltip-title" id="tt-title">✦ Planet Detail</div>
+          <div class="tooltip-detail" id="tt-body">Hover over any planet node, aspect chord, or house line to inspect live metadata.</div>
+        </div>
+
+        <!-- Render Target -->
+        <div id="chart-wrapper"></div>
+      </div>
+
+      <!-- Developer API Specification & Payload Preview -->
+      <div class="code-card">
+        <div class="code-header">
+          <span>Headless API Request Equivalent</span>
+          <span style="font-size:0.75rem; color: var(--accent);">POST /v1/chart/natal.svg</span>
+        </div>
+        <pre id="api-curl-preview"></pre>
+      </div>
+    </div>
+  </main>
+
+  <!-- Load Core Engine -->
+  <script src="./engine.js"></script>
+
+  <script>
+    // Benchmark Presets
+    const PRESETS = {
+      jobs: {
+        name: "Steve Jobs",
+        ascendant: 238.4, // Scorpio ASC
+        houses: [238.4, 271.2, 307.8, 345.1, 19.5, 48.2, 58.4, 91.2, 127.8, 165.1, 199.5, 228.2],
+        planets: {
+          Sun: { degree: 335.5, house: 5 },       // 5° Pisces
+          Moon: { degree: 157.2, house: 11 },     // 7° Virgo
+          Mercury: { degree: 323.8, house: 4 },   // 23° Aquarius
+          Venus: { degree: 301.2, house: 3 },     // 1° Aquarius
+          Mars: { degree: 21.4, house: 6 },       // 21° Aries
+          Jupiter: { degree: 110.8, house: 9 },   // 20° Cancer
+          Saturn: { degree: 231.2, house: 12 },   // 21° Scorpio
+          Uranus: { degree: 114.7, house: 9 },    // 24° Cancer
+          Neptune: { degree: 207.5, house: 12 },  // 27° Libra
+          Pluto: { degree: 145.9, house: 10 },    // 25° Leo
+          Chiron: { degree: 301.9, house: 3 },    // 1° Aquarius
+          NorthNode: { degree: 275.3, house: 2 }  // 5° Capricorn
+        }
+      },
+      stellium: {
+        name: "Extreme 4-Planet Stellium in Scorpio (Collision Avoidance Demo)",
+        ascendant: 180.0,
+        houses: [180, 210, 240, 270, 300, 330, 0, 30, 60, 90, 120, 150],
+        planets: {
+          Sun: { degree: 221.0, house: 2 },       // 11° Scorpio
+          Moon: { degree: 222.5, house: 2 },      // 12.5° Scorpio
+          Mercury: { degree: 224.0, house: 2 },   // 14° Scorpio
+          Venus: { degree: 226.2, house: 2 },     // 16.2° Scorpio
+          Mars: { degree: 45.0, house: 8 },       // 15° Taurus (Opposite!)
+          Jupiter: { degree: 311.0, house: 5 },   // 11° Aquarius (Square!)
+          Saturn: { degree: 131.0, house: 11 },   // 11° Leo (Square!)
+          Uranus: { degree: 18.0, house: 7 },
+          Neptune: { degree: 340.0, house: 6 },
+          Pluto: { degree: 298.0, house: 4 }
+        }
+      },
+      jung: {
+        name: "Carl Gustav Jung",
+        ascendant: 318.5, // Aquarius ASC
+        houses: [318.5, 355.2, 28.1, 55.4, 78.9, 99.1, 138.5, 175.2, 208.1, 235.4, 258.9, 279.1],
+        planets: {
+          Sun: { degree: 123.2, house: 7 },       // 3° Leo
+          Moon: { degree: 45.5, house: 3 },       // 15° Taurus
+          Mercury: { degree: 133.8, house: 7 },   // 13° Leo
+          Venus: { degree: 114.2, house: 6 },     // 24° Cancer
+          Mars: { degree: 201.2, house: 9 },      // 21° Libra
+          Jupiter: { degree: 203.4, house: 9 },   // 23° Libra
+          Saturn: { degree: 324.1, house: 1 },    // 24° Aquarius
+          Uranus: { degree: 134.5, house: 7 },    // 14° Leo
+          Neptune: { degree: 32.1, house: 2 },    // 2° Taurus
+          Pluto: { degree: 52.8, house: 3 }       // 22° Taurus
+        }
+      },
+      current: {
+        name: "Current Sky Transit Snapshot",
+        ascendant: 90.0,
+        houses: [90, 120, 150, 180, 210, 240, 270, 300, 330, 0, 30, 60],
+        planets: {
+          Sun: { degree: 218.0, house: 5 },       // 8° Scorpio
+          Moon: { degree: 195.0, house: 4 },      // 15° Libra
+          Mercury: { degree: 236.0, house: 6 },   // 26° Scorpio
+          Venus: { degree: 254.0, house: 6 },     // 14° Sagittarius
+          Mars: { degree: 118.0, house: 2 },      // 28° Cancer
+          Jupiter: { degree: 80.0, house: 12 },   // 20° Gemini
+          Saturn: { degree: 342.0, house: 9 },    // 12° Pisces (Retrograde)
+          Uranus: { degree: 56.0, house: 11 },    // 26° Taurus
+          Neptune: { degree: 357.0, house: 9 },   // 27° Pisces
+          Pluto: { degree: 299.8, house: 7 }      // 29° Capricorn
+        }
+      }
+    };
+
+    let currentTheme = 'midnight';
+    let currentSize = 800;
+    let currentData = { ...PRESETS.jobs };
+
+    const chartWrapper = document.getElementById('chart-wrapper');
+    const tooltip = document.getElementById('inspector-tooltip');
+    const ttTitle = document.getElementById('tt-title');
+    const ttBody = document.getElementById('tt-body');
+    const ascSlider = document.getElementById('asc-slider');
+    const ascVal = document.getElementById('asc-val');
+    const curlPreview = document.getElementById('api-curl-preview');
+    const birthForm = document.getElementById('birth-form');
+
+    // Summary banner elements
+    const sumSun = document.getElementById('sum-sun');
+    const sumMoon = document.getElementById('sum-moon');
+    const sumAsc = document.getElementById('sum-asc');
+    const sumLocation = document.getElementById('sum-location');
+
+    async function calculateCustomBirthChart() {
+      const birthDate = document.getElementById('input-date').value;
+      const birthTime = document.getElementById('input-time').value;
+      const city = document.getElementById('input-city').value;
+      const houseSystem = document.getElementById('input-house').value;
+
+      try {
+        const response = await fetch('/v1/chart/natal.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            birth_data: {
+              date: birthDate,
+              time: birthTime,
+              city: city
+            },
+            theme: currentTheme,
+            size: currentSize,
+            house_system: houseSystem
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('API calculation failed: ' + response.statusText);
+        }
+
+        const data = await response.json();
+        currentData = data;
+        
+        // Update ASC controls
+        ascSlider.value = data.angles.ascendant;
+        ascVal.innerText = `${data.angles.ascendant.toFixed(1)}°`;
+
+        // Update Big 3 Summary Banner
+        const sun = data.planets.Sun;
+        const moon = data.planets.Moon;
+        const asc = data.angles.ascendant;
+        const ascSignIdx = Math.floor(asc / 30);
+        const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+        const ascSign = signs[ascSignIdx];
+        const ascDegInSign = (asc % 30).toFixed(1);
+
+        sumSun.innerHTML = `☉ ${sun.sign} ${sun.degree_in_sign}°`;
+        sumMoon.innerHTML = `☽ ${moon.sign} ${moon.degree_in_sign}°`;
+        sumAsc.innerHTML = `☊ ${ascSign} ${ascDegInSign}°`;
+        sumLocation.innerHTML = `📍 ${data.meta.resolved_location} (${data.meta.timezone})`;
+
+        renderChart();
+
+      } catch (err) {
+        console.warn('Backend API offline or error, falling back:', err);
+        renderChart();
+      }
+    }
+
+    birthForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('preset-select').value = 'custom';
+      calculateCustomBirthChart();
+    });
+
+    function renderChart() {
+      const engine = new AstroSvgEngine({
+        theme: currentTheme,
+        size: currentSize
+      });
+
+      const svgMarkup = engine.render(currentData);
+      chartWrapper.innerHTML = svgMarkup;
+      bindInteractiveHooks();
+      updateCurlPreview();
+    }
+
+    function bindInteractiveHooks() {
+      // Planet Hover Hooks
+      const planetElements = chartWrapper.querySelectorAll('.planet-glyph');
+      planetElements.forEach(el => {
+        el.addEventListener('mouseenter', (e) => {
+          const name = el.getAttribute('data-planet');
+          const sign = el.getAttribute('data-sign');
+          const deg = el.getAttribute('data-degree');
+          
+          ttTitle.innerHTML = `✦ ${name} in ${sign}`;
+          ttBody.innerHTML = `<b>Position:</b> ${deg}° ${sign}<br><b>House:</b> Active natal position.<br><span style="color:var(--accent);">Semantic ID: #${el.id}</span>`;
+          tooltip.classList.add('visible');
+        });
+
+        el.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+        });
+      });
+
+      // Aspect Line Hover Hooks
+      const aspectLines = chartWrapper.querySelectorAll('.aspect-line');
+      aspectLines.forEach(line => {
+        line.addEventListener('mouseenter', () => {
+          const aspect = line.getAttribute('data-aspect');
+          const orb = line.getAttribute('data-orb');
+          const planets = line.getAttribute('data-planets').split('-');
+
+          ttTitle.innerHTML = `⚡ ${planets[0]} ${aspect} ${planets[1]}`;
+          ttBody.innerHTML = `<b>Aspect Type:</b> ${aspect}<br><b>Orb:</b> ${orb}° precision tightness<br><span style="color:${line.getAttribute('stroke')};">Chord rendered with dynamic opacity</span>`;
+          tooltip.classList.add('visible');
+        });
+
+        line.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+        });
+      });
+    }
+
+    function updateCurlPreview() {
+      const birthDate = document.getElementById('input-date')?.value || '1992-03-15';
+      const birthTime = document.getElementById('input-time')?.value || '20:45';
+      const city = document.getElementById('input-city')?.value || 'Chicago';
+      const houseSystem = document.getElementById('input-house')?.value || 'whole_sign';
+
+      const payload = {
+        birth_data: {
+          date: birthDate,
+          time: birthTime,
+          city: city
+        },
+        theme: currentTheme,
+        size: currentSize,
+        house_system: houseSystem
+      };
+
+      curlPreview.innerHTML = `curl -X POST https://api.astrovector.dev/v1/chart/natal.svg \\
+  -H <span class="hl-string">"Content-Type: application/json"</span> \\
+  -H <span class="hl-string">"Authorization: Bearer YOUR_RAPIDAPI_KEY"</span> \\
+  -d '<span class="hl-key">${JSON.stringify(payload, null, 2)}</span>'`;
+    }
+
+    // Preset Change Event
+    document.getElementById('preset-select').addEventListener('change', (e) => {
+      currentPreset = e.target.value;
+      currentData = { ...PRESETS[currentPreset] };
+      ascSlider.value = currentData.ascendant;
+      ascVal.innerText = `${currentData.ascendant.toFixed(1)}°`;
+      renderChart();
+    });
+
+    // Theme Change Event
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTheme = btn.getAttribute('data-theme');
+        renderChart();
+      });
+    });
+
+    // ASC Slider
+    ascSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      currentData.ascendant = val;
+      ascVal.innerText = `${val.toFixed(1)}°`;
+      renderChart();
+    });
+
+    // Size Select
+    document.getElementById('size-select').addEventListener('change', (e) => {
+      currentSize = parseInt(e.target.value);
+      renderChart();
+    });
+
+    // Copy SVG Button
+    document.getElementById('btn-copy-svg').addEventListener('click', () => {
+      const svg = chartWrapper.innerHTML;
+      navigator.clipboard.writeText(svg).then(() => {
+        const btn = document.getElementById('btn-copy-svg');
+        const oldText = btn.innerHTML;
+        btn.innerHTML = `✓ Copied!`;
+        setTimeout(() => btn.innerHTML = oldText, 1500);
+      });
+    });
+
+    // Download SVG Button
+    document.getElementById('btn-download-svg').addEventListener('click', () => {
+      const svg = chartWrapper.innerHTML;
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `natal-chart-${currentPreset}-${currentTheme}.svg`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Initial render using live ephemeris calculation
+    calculateCustomBirthChart();
+  </script>
+</body>
+</html>
+

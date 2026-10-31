@@ -1,0 +1,22 @@
+{
+  "name": "easy-chart-api",
+  "version": "1.0.0",
+  "description": "Headless Transparent Astrological Vector Overlay and Interpretive Dossier Engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "astrology",
+    "natal-chart",
+    "svg",
+    "ephemeris",
+    "astronomy",
+    "horoscope"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "astronomy-engine": "^2.1.19"
+  }
+}

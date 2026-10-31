@@ -1,0 +1,119 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Easy Chart API - Transparent Astrology Vector Overlay Engine",
+    "description": "High-precision astronomical ephemeris that generates a pure, transparent vector SVG overlay of any birth chart. Designed as a headless decal/HUD that developers can drop on top of any custom background, gradient, mobile card, or video loop.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://astrovector-api.vercel.app",
+      "description": "Production Vercel Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/chart.svg": {
+      "post": {
+        "summary": "Generate Transparent Chart Overlay",
+        "description": "Input a birth date, time, and city. Receives a pure, transparent vector SVG overlay with NASA-accurate planet positions, house rays, aspect chords, and collision avoidance.",
+        "operationId": "generateOverlaySvg",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverlayRequest"
+              },
+              "example": {
+                "birth_data": {
+                  "date": "1994-08-18",
+                  "time": "14:15",
+                  "city": "Miami"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pure transparent SVG vector overlay",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chart/dossier": {
+      "post": {
+        "summary": "Generate Chart Overlay + Interpretive Dossier",
+        "description": "Returns both the transparent SVG vector overlay AND modern, archetypal psychological readings for Sun, Moon, Rising, inner planets, and key aspects. Ideal for instant chart readings or client report starter dossiers.",
+        "operationId": "generateDossier",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverlayRequest"
+              },
+              "example": {
+                "birth_data": {
+                  "date": "1971-03-02",
+                  "time": "13:11",
+                  "city": "Cincinnati"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comprehensive psychological reading + transparent SVG visual",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OverlayRequest": {
+        "type": "object",
+        "required": ["birth_data"],
+        "properties": {
+          "birth_data": {
+            "type": "object",
+            "required": ["date", "time", "city"],
+            "properties": {
+              "date": {
+                "type": "string",
+                "description": "Birth date (YYYY-MM-DD)",
+                "example": "1994-08-18"
+              },
+              "time": {
+                "type": "string",
+                "description": "Local birth time (HH:MM 24-hr format)",
+                "example": "14:15"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name. Coordinates and historical DST are automatically resolved.",
+                "example": "Miami"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

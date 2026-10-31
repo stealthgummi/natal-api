@@ -1,0 +1,151 @@
+const http = require('http');
+const { AstroOverlayEngine } = require('./lib/engine.js');
+const { calculateNatalChart } = require('./lib/ephemeris.js');
+const { generateDossier } = require('./lib/interpretations.js');
+
+const PORT = 3033;
+
+const server = http.createServer((req, res) => {
+  // CORS Headers
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-RapidAPI-Key, X-RapidAPI-Host, X-RapidAPI-Proxy-Secret',
+    'Access-Control-Max-Age': '86400'
+  };
+
+  Object.entries(corsHeaders).forEach(([h, v]) => res.setHeader(h, v));
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  const url = new URL(req.url, `http://${req.headers.host}`);
+
+  // 1. POST /v1/chart/natal.svg - Pure Transparent Overlay
+  if ((url.pathname === '/v1/chart/natal.svg' || url.pathname === '/v1/chart.svg') && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const birth = payload.birth_data || payload;
+        const size = parseInt(payload.size) || 800;
+
+        const chartData = calculateNatalChart({
+          date: birth.date,
+          birth_date: birth.date || birth.birth_date,
+          birth_time: birth.time || birth.birth_time,
+          city: birth.city || 'New York',
+          latitude: birth.latitude || birth.lat,
+          longitude: birth.longitude || birth.lon,
+          timezone: birth.timezone
+        });
+
+        const engine = new AstroOverlayEngine({ size });
+        const svg = engine.render(chartData);
+
+        res.writeHead(200, {
+          'Content-Type': 'image/svg+xml; charset=utf-8',
+          'X-Astro-Overlay': 'v1.0'
+        });
+        res.end(svg);
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Calculation failed', details: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 2. POST /v1/chart/dossier - Visual Overlay + Interpretive Starter Readings
+  if ((url.pathname === '/v1/chart/dossier' || url.pathname === '/v1/chart/dossier.json') && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const birth = payload.birth_data || payload;
+        const size = parseInt(payload.size) || 800;
+
+        const chartData = calculateNatalChart({
+          date: birth.date,
+          birth_date: birth.date || birth.birth_date,
+          birth_time: birth.time || birth.birth_time,
+          city: birth.city || 'Cincinnati',
+          latitude: birth.latitude || birth.lat,
+          longitude: birth.longitude || birth.lon,
+          timezone: birth.timezone
+        });
+
+        const engine = new AstroOverlayEngine({ size });
+        const svg = engine.render(chartData);
+        const aspects = engine.calculateAspects(chartData.planets);
+        const dossier = generateDossier(chartData);
+
+        const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+          success: true,
+          meta: {
+            location: chartData.meta.resolved_location,
+            timezone: chartData.meta.timezone,
+            utc_time: chartData.meta.utc_time
+          },
+          dossier: dossier,
+          aspects: aspects,
+          visual_package: {
+            overlay_svg: svg,
+            overlay_data_uri: dataUri,
+            note: "Drop this transparent overlay SVG directly over your custom skin or background."
+          }
+        }, null, 2));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Dossier generation failed', details: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 3. GET /v1/chart/sample.svg - The Official Brand Reference Chart (The Architect's Chart)
+  if (url.pathname === '/v1/chart/sample.svg' && req.method === 'GET') {
+    const chartData = calculateNatalChart({
+      birth_date: '1971-03-02',
+      birth_time: '13:11',
+      city: 'Cincinnati'
+    });
+    const engine = new AstroOverlayEngine({ size: 800 });
+    const svg = engine.render(chartData);
+
+    res.writeHead(200, { 'Content-Type': 'image/svg+xml; charset=utf-8' });
+    res.end(svg);
+    return;
+  }
+
+  // 3. Root health check
+  if (url.pathname === '/') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      status: 'online',
+      product: 'Easy Chart API - Headless Transparent Vector Overlay Engine',
+      version: '1.0.0',
+      brand_color: '#004aad',
+      endpoint: 'POST /v1/chart.svg'
+    }, null, 2));
+    return;
+  }
+
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ error: 'Endpoint not found' }));
+});
+
+server.listen(PORT, () => {
+  console.log(`\n======================================================`);
+  console.log(`  ✦ AstroOverlay API running on http://localhost:${PORT}`);
+  console.log(`  ✦ Endpoint: POST http://localhost:${PORT}/v1/chart.svg`);
+  console.log(`======================================================\n`);
+});
