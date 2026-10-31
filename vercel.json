@@ -1,21 +1,11 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/v1/chart.svg", "destination": "/server.js" },
-    { "source": "/v1/chart/natal.svg", "destination": "/server.js" },
-    { "source": "/v1/chart/dossier", "destination": "/server.js" },
-    { "source": "/v1/chart/dossier.json", "destination": "/server.js" },
-    { "source": "/v1/chart/sample.svg", "destination": "/server.js" },
-    { "source": "/(.*)", "destination": "/server.js" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-RapidAPI-Key, X-RapidAPI-Host, X-RapidAPI-Proxy-Secret" }
-      ]
-    }
+    { "source": "/v1/chart.svg", "destination": "/api/chart" },
+    { "source": "/v1/chart/natal.svg", "destination": "/api/chart" },
+    { "source": "/v1/chart/dossier", "destination": "/api/dossier" },
+    { "source": "/v1/chart/dossier.json", "destination": "/api/dossier" },
+    { "source": "/v1/chart/sample.svg", "destination": "/api/sample" },
+    { "source": "/", "destination": "/api/index" }
   ]
 }
