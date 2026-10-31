@@ -48,6 +48,7 @@ const server = http.createServer((req, res) => {
           timezone: birth.timezone
         });
 
+        const size = parseInt(payload.size) || 800;
         const engine = new AstroOverlayEngine({ size });
         const svg = engine.render(chartData);
 
