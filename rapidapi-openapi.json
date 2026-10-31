@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://astrovector-api.vercel.app",
+      "url": "https://easy-chart-api.vercel.app",
       "description": "Production Vercel Gateway"
     }
   ],
@@ -40,7 +40,8 @@
             "content": {
               "image/svg+xml": {
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
