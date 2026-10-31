@@ -23,7 +23,11 @@ const server = http.createServer((req, res) => {
   }
 
   const url = new URL(req.url, `http://${req.headers.host}`);
-  const p = url.pathname.toLowerCase();
+  
+  // Resolve original requested path across Vercel, proxies, and local server
+  const forwarded = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'] || req.headers['x-original-url'] || req.headers['x-rewrite-url'];
+  const rawPath = forwarded || (url.pathname === '/server.js' ? '/' : url.pathname);
+  const p = rawPath.split('?')[0].toLowerCase();
 
   // 1. POST /v1/chart.svg - Pure Transparent Overlay
   if ((p === '/v1/chart.svg' || p === '/v1/chart/natal.svg' || p === '/api/natal-svg' || p.endsWith('/chart.svg') || p.endsWith('/natal-svg')) && req.method === 'POST') {
@@ -141,7 +145,13 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ error: 'Endpoint not found', received_path: p, method: req.method }));
+  res.end(JSON.stringify({
+    error: 'Endpoint not found',
+    received_path: p,
+    raw_url: req.url,
+    forwarded: forwarded || null,
+    headers: req.headers
+  }));
 });
 
 server.listen(PORT, () => {
