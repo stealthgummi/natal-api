@@ -1,11 +1,12 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/v1/chart.svg", "destination": "/api/natal-svg" },
-    { "source": "/v1/chart/natal.svg", "destination": "/api/natal-svg" },
-    { "source": "/v1/chart/dossier", "destination": "/api/dossier" },
-    { "source": "/v1/chart/dossier.json", "destination": "/api/dossier" },
-    { "source": "/v1/chart/sample.svg", "destination": "/api/sample" }
+    { "source": "/v1/chart.svg", "destination": "/server.js" },
+    { "source": "/v1/chart/natal.svg", "destination": "/server.js" },
+    { "source": "/v1/chart/dossier", "destination": "/server.js" },
+    { "source": "/v1/chart/dossier.json", "destination": "/server.js" },
+    { "source": "/v1/chart/sample.svg", "destination": "/server.js" },
+    { "source": "/(.*)", "destination": "/server.js" }
   ],
   "headers": [
     {
@@ -18,4 +19,3 @@
     }
   ]
 }
-

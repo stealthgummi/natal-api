@@ -23,9 +23,10 @@ const server = http.createServer((req, res) => {
   }
 
   const url = new URL(req.url, `http://${req.headers.host}`);
+  const p = url.pathname.toLowerCase();
 
-  // 1. POST /v1/chart/natal.svg - Pure Transparent Overlay
-  if ((url.pathname === '/v1/chart/natal.svg' || url.pathname === '/v1/chart.svg') && req.method === 'POST') {
+  // 1. POST /v1/chart.svg - Pure Transparent Overlay
+  if ((p === '/v1/chart.svg' || p === '/v1/chart/natal.svg' || p === '/api/natal-svg' || p.endsWith('/chart.svg') || p.endsWith('/natal-svg')) && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -61,7 +62,7 @@ const server = http.createServer((req, res) => {
   }
 
   // 2. POST /v1/chart/dossier - Visual Overlay + Interpretive Starter Readings
-  if ((url.pathname === '/v1/chart/dossier' || url.pathname === '/v1/chart/dossier.json') && req.method === 'POST') {
+  if ((p === '/v1/chart/dossier' || p === '/v1/chart/dossier.json' || p === '/api/dossier' || p.endsWith('/dossier') || p.endsWith('/dossier.json')) && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -112,7 +113,7 @@ const server = http.createServer((req, res) => {
   }
 
   // 3. GET /v1/chart/sample.svg - The Official Brand Reference Chart (The Architect's Chart)
-  if (url.pathname === '/v1/chart/sample.svg' && req.method === 'GET') {
+  if ((p === '/v1/chart/sample.svg' || p === '/api/sample' || p.endsWith('/sample.svg') || p.endsWith('/sample')) && req.method === 'GET') {
     const chartData = calculateNatalChart({
       birth_date: '1971-03-02',
       birth_time: '13:11',
@@ -140,7 +141,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ error: 'Endpoint not found' }));
+  res.end(JSON.stringify({ error: 'Endpoint not found', received_path: p, method: req.method }));
 });
 
 server.listen(PORT, () => {
