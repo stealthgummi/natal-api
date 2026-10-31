@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
   const p = rawPath.split('?')[0].toLowerCase();
 
   // 1. POST /v1/chart.svg - Pure Transparent Overlay
-  if ((p === '/v1/chart.svg' || p === '/v1/chart/natal.svg' || p === '/api/natal-svg' || p.endsWith('/chart.svg') || p.endsWith('/natal-svg')) && req.method === 'POST') {
+  if ((p === '/v1/chart.svg' || p === '/v1/chart' || p === '/api/chart' || p === '/v1/chart/natal.svg' || p === '/api/natal-svg' || p.endsWith('/chart.svg') || p.endsWith('/chart') || p.endsWith('/natal-svg')) && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
