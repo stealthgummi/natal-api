@@ -29,7 +29,6 @@ module.exports = async (req, res) => {
     }
 
     const birth = body.birth_data || body;
-    const size = parseInt(body.size) || 800;
 
     // Calculate Astronomical Positions
     const chartData = calculateNatalChart({
@@ -42,16 +41,12 @@ module.exports = async (req, res) => {
       timezone: birth.timezone
     });
 
-    // Render Transparent Vector Overlay
-    const engine = new AstroOverlayEngine({ size });
-    const svg = engine.render(chartData);
+    // Calculate Aspects
+    const engine = new AstroOverlayEngine();
     const aspects = engine.calculateAspects(chartData.planets);
 
     // Generate Interpretive Readings
     const dossier = generateDossier(chartData);
-
-    // Build Base64 Data URI
-    const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=43200');
@@ -64,12 +59,7 @@ module.exports = async (req, res) => {
         utc_time: chartData.meta.utc_time
       },
       dossier: dossier,
-      aspects: aspects,
-      visual_package: {
-        overlay_svg: svg,
-        overlay_data_uri: dataUri,
-        note: "Drop this transparent overlay SVG directly over your custom skin or background."
-      }
+      aspects: aspects
     }, null, 2));
 
   } catch (error) {

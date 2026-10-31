@@ -51,8 +51,8 @@
     },
     "/v1/chart/dossier": {
       "post": {
-        "summary": "Generate Chart Overlay + Interpretive Dossier",
-        "description": "Returns both the transparent SVG vector overlay AND modern, archetypal psychological readings for Sun, Moon, Rising, inner planets, and key aspects. Ideal for instant chart readings or client report starter dossiers.",
+        "summary": "Generate Psychological Dossier & Interpretations",
+        "description": "Input a birth date, time, and city. Returns comprehensive archetypal psychological readings for Sun, Moon, Rising (The Big Three), Inner Counsel planetary placements, and key aspects. Pure structured JSON without visual assets.",
         "operationId": "generateDossier",
         "requestBody": {
           "required": true,
@@ -73,7 +73,7 @@
         },
         "responses": {
           "200": {
-            "description": "Comprehensive psychological reading + transparent SVG visual",
+            "description": "Comprehensive psychological reading and geometric aspect analysis",
             "content": {
               "application/json": {
                 "schema": {

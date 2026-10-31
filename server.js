@@ -37,7 +37,6 @@ const server = http.createServer((req, res) => {
       try {
         const payload = JSON.parse(body || '{}');
         const birth = payload.birth_data || payload;
-        const size = parseInt(payload.size) || 800;
 
         const chartData = calculateNatalChart({
           date: birth.date,
@@ -73,7 +72,6 @@ const server = http.createServer((req, res) => {
       try {
         const payload = JSON.parse(body || '{}');
         const birth = payload.birth_data || payload;
-        const size = parseInt(payload.size) || 800;
 
         const chartData = calculateNatalChart({
           date: birth.date,
@@ -85,12 +83,9 @@ const server = http.createServer((req, res) => {
           timezone: birth.timezone
         });
 
-        const engine = new AstroOverlayEngine({ size });
-        const svg = engine.render(chartData);
+        const engine = new AstroOverlayEngine();
         const aspects = engine.calculateAspects(chartData.planets);
         const dossier = generateDossier(chartData);
-
-        const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
@@ -101,12 +96,7 @@ const server = http.createServer((req, res) => {
             utc_time: chartData.meta.utc_time
           },
           dossier: dossier,
-          aspects: aspects,
-          visual_package: {
-            overlay_svg: svg,
-            overlay_data_uri: dataUri,
-            note: "Drop this transparent overlay SVG directly over your custom skin or background."
-          }
+          aspects: aspects
         }, null, 2));
       } catch (err) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
