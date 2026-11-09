@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Easy Chart API - Transparent Astrology Vector Overlay Engine (AWS Marketplace Edition)",
+    "description": "High-precision astronomical ephemeris that generates a pure, transparent vector SVG overlay of any birth chart. Designed as a headless decal/HUD that developers can drop on top of any custom background, gradient, mobile card, or video loop. Deployed natively in AWS Region us-east-2 with API Gateway and serverless compute.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "AWS Marketplace API Operations",
+      "email": "marketplace-support@7layer.store"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.easy-chart-api.7layer.store",
+      "description": "Primary Production API Gateway (Regional us-east-2)"
+    },
+    {
+      "url": "https://{apiId}.execute-api.us-east-2.amazonaws.com/prod",
+      "description": "Direct AWS API Gateway Stage Endpoint",
+      "variables": {
+        "apiId": {
+          "default": "easychartapi"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "Core Endpoints",
+      "description": "Core API Operations"
+    }
+  ],
+  "paths": {
+    "/v1/chart.svg": {
+      "post": {
+        "summary": "Generate Transparent Chart Overlay",
+        "description": "Input a birth date, time, and city. Receives a pure, transparent vector SVG overlay with NASA-accurate planet positions, house rays, aspect chords, and collision avoidance.",
+        "operationId": "generateOverlaySvg",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverlayRequest"
+              },
+              "example": {
+                "birth_data": {
+                  "date": "1994-08-18",
+                  "time": "14:15",
+                  "city": "Miami"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pure transparent SVG vector overlay",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:${AWS::AccountId}:function:${StageVariables.FunctionName}/invocations",
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/v1/chart/dossier": {
+      "post": {
+        "summary": "Generate Psychological Dossier & Interpretations",
+        "description": "Input a birth date, time, and city. Returns comprehensive archetypal psychological readings for Sun, Moon, Rising (The Big Three), Inner Counsel planetary placements, and key aspects. Pure structured JSON without visual assets.",
+        "operationId": "generateDossier",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverlayRequest"
+              },
+              "example": {
+                "birth_data": {
+                  "date": "1971-03-02",
+                  "time": "13:11",
+                  "city": "Cincinnati"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comprehensive psychological reading and geometric aspect analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:${AWS::AccountId}:function:${StageVariables.FunctionName}/invocations",
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header",
+        "description": "AWS Marketplace Subscription API Key"
+      },
+      "SigV4Auth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "AWS IAM Signature Version 4 (AWS_IAM authorization)"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}
